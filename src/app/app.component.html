@@ -1,0 +1,13 @@
+<section>
+  @for (movie of movieList; track movie.id) {
+  <div>
+    <h1>{{ movie.title }}</h1>
+    <p>
+      Durée : {{ movie.duration }} - Budget : {{ movie.budget }} - Duration:
+      {{ movie.duration }}
+    </p>
+  </div>
+  } @empty {
+  <p>No movies</p>
+  }
+</section>
