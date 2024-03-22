@@ -4,20 +4,30 @@
     <div class="col-sm6">
       <div class="input-group fluid">
         <label for="title">Title</label>
-        <input type="text" id="title" placeholder="Search by title..." />
+        <input
+          (input)="facade.updateFilterTitle($event)"
+          type="text"
+          id="title"
+          placeholder="Search by title..."
+        />
       </div>
     </div>
     <div class="col-sm6">
       <div class="input-group fluid">
         <label for="release-year">Release year</label>
-        <input type="text" id="release-year" placeholder="Release year..." />
+        <input
+          (input)="facade.updateFilterRealeaseYear($event)"
+          type="text"
+          id="release-year"
+          placeholder="Release year..."
+        />
       </div>
     </div>
   </div>
 </section>
 
 <section>
-  @for (movie of moviesFacade.movieList$ | async; track movie.id) {
+  @for (movie of facade.filteredMovieList$ | async; track movie.id) {
   <h1>{{ movie.title }}</h1>
   <ul>
     <li>Release Date : {{ movie.release_date }}</li>

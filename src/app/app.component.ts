@@ -13,9 +13,9 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  readonly moviesFacade = inject(MoviesFacade);
+  readonly facade = inject(MoviesFacade);
 
   ngOnInit() {
-    this.moviesFacade.loadMovieList();
+    this.facade.loadMovieList();
   }
 }
