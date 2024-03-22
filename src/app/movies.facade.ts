@@ -1,12 +1,12 @@
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, tap, withLatestFrom } from 'rxjs';
-import { Movie } from './movie.model';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { MoviesService } from './movies.service';
+import { Movie } from './movie.model';
 
 type MovieState = {
   movieList: Movie[];
-  titleSearched: string;
-  releaseYearSearched: string;
+  searchedTitle: string;
+  searchedReleaseYear: string;
   isLoading: boolean;
 };
 
@@ -15,53 +15,53 @@ type MovieState = {
 })
 export class MoviesFacade {
   private readonly moviesService = inject(MoviesService);
-  private readonly state = new BehaviorSubject<MovieState>({
+  private readonly initialState: MovieState = {
     movieList: [],
     isLoading: false,
-    titleSearched: '',
-    releaseYearSearched: '',
-  });
+    searchedTitle: '',
+    searchedReleaseYear: '',
+  };
+  private readonly state = new BehaviorSubject<MovieState>(this.initialState);
   private readonly state$ = this.state.asObservable();
 
   /* Selectors */
-  filteredMovieList$ = this.state$.pipe(
-    map((state) => {
-      const title = state.titleSearched.trim().toLowerCase();
-      const releaseYear = +state.releaseYearSearched.trim();
+  searchedMovieList$ = this.state$.pipe(
+    map((state: MovieState) => {
+      const title = state.searchedTitle.trim().toLowerCase();
+      const releaseYear = +state.searchedReleaseYear.trim();
 
+      /* When there isn't search criteria, we display the whole movie list. */
       if (!title && !releaseYear) {
         return state.movieList;
       }
 
-      let movieSearched = state.movieList;
+      let searchedMovieList = state.movieList;
 
       if (title) {
-        movieSearched = movieSearched.filter((movie) =>
+        searchedMovieList = searchedMovieList.filter((movie) =>
           movie.title.trim().toLowerCase().includes(title)
         );
       }
 
       if (releaseYear) {
-        movieSearched = movieSearched.filter(
+        searchedMovieList = searchedMovieList.filter(
           (movie) => new Date(movie.release_date).getFullYear() === releaseYear
         );
       }
 
-      return movieSearched;
+      return searchedMovieList;
     })
   );
 
-  isLoading$ = this.state$.pipe(map((state) => state.isLoading));
-
   /* Actions */
-  updateFilterTitle(event: Event): void {
+  updateSearchedTitle(event: Event): void {
     const title = (event.target as HTMLInputElement).value;
-    this.setFilterTitle(title);
+    this.setSearchedTitle(title);
   }
 
-  updateFilterRealeaseYear(event: Event): void {
+  updateSearchedRealeaseYear(event: Event): void {
     const releaseYear = (event.target as HTMLInputElement).value;
-    this.setFilterReleaseYear(releaseYear);
+    this.setSearchedReleaseYear(releaseYear);
   }
 
   /* Reducers */
@@ -69,34 +69,23 @@ export class MoviesFacade {
     this.state.next({ ...this.state.value, movieList, isLoading: false });
   }
 
-  private setFilterTitle(titleSearched: string) {
-    this.state.next({ ...this.state.value, titleSearched });
+  private setSearchedTitle(searchedTitle: string) {
+    this.state.next({ ...this.state.value, searchedTitle });
   }
 
-  private setFilterReleaseYear(releaseYearSearched: string) {
-    this.state.next({ ...this.state.value, releaseYearSearched });
+  private setSearchedReleaseYear(searchedReleaseYear: string) {
+    this.state.next({ ...this.state.value, searchedReleaseYear });
   }
 
-  private startLoading() {
-    this.state.next({ ...this.state.value, isLoading: true });
-  }
-
-  private resetFilterCriteria() {
-    this.state.next({
-      ...this.state.value,
-      titleSearched: '',
-      releaseYearSearched: '',
-    });
+  private resetState() {
+    this.state.next(this.initialState);
   }
 
   /* Side Effects */
   loadMovieList(): void {
     this.moviesService
       .getMovieList()
-      .pipe(
-        tap(() => this.resetFilterCriteria()),
-        tap(() => this.startLoading())
-      )
+      .pipe(tap(() => this.resetState()))
       .subscribe((value) => this.setMovieList(value));
   }
 }

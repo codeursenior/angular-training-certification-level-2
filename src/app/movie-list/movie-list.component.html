@@ -5,7 +5,7 @@
       <div class="input-group fluid">
         <label for="title">Title</label>
         <input
-          (input)="facade.updateFilterTitle($event)"
+          (input)="facade.updateSearchedTitle($event)"
           type="text"
           id="title"
           placeholder="Search by title..."
@@ -16,7 +16,7 @@
       <div class="input-group fluid">
         <label for="release-year">Release year</label>
         <input
-          (input)="facade.updateFilterRealeaseYear($event)"
+          (input)="facade.updateSearchedRealeaseYear($event)"
           type="text"
           id="release-year"
           placeholder="Release year..."
@@ -27,7 +27,7 @@
 </section>
 
 <section>
-  @for (movie of facade.filteredMovieList$ | async; track movie.id) {
+  @for (movie of facade.searchedMovieList$ | async; track movie.id) {
   <h1>{{ movie.title }}</h1>
   <ul>
     <li>Release Date : {{ movie.release_date }}</li>
