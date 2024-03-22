@@ -17,7 +17,7 @@
 </section>
 
 <section>
-  @for (movie of movieList; track movie.id) {
+  @for (movie of moviesFacade.movieList$ | async; track movie.id) {
   <h1>{{ movie.title }}</h1>
   <ul>
     <li>Release Date : {{ movie.release_date }}</li>

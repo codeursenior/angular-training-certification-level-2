@@ -1,24 +1,21 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MoviesService } from './movies.service';
-import { Movie } from './movie.model';
 import { DurationPipe } from './duration.pipe';
 import { BudgetPipe } from './budget.pipe';
+import { MoviesFacade } from './movies.facade';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, DurationPipe, BudgetPipe],
+  imports: [RouterOutlet, DurationPipe, BudgetPipe, AsyncPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  readonly #moviesService = inject(MoviesService);
-  movieList: Movie[] = [];
+  readonly moviesFacade = inject(MoviesFacade);
 
   ngOnInit() {
-    this.#moviesService
-      .getMovieList()
-      .subscribe((value) => (this.movieList = value));
+    this.moviesFacade.loadMovieList();
   }
 }
