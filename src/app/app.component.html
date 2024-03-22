@@ -3,7 +3,7 @@
   <div>
     <h1>{{ movie.title }}</h1>
     <span>Release Date : {{ movie.release_date }}</span>
-    <span>Budget : {{ movie.budget }}</span>
+    <span>Budget : {{ movie.budget | budget }}</span>
     <span>Duration : {{ movie.duration | duration }}</span>
     <button>Details</button>
   </div>

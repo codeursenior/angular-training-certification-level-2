@@ -1,14 +1,14 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MoviesService } from './movies.service';
 import { Movie } from './movie.model';
 import { DurationPipe } from './duration.pipe';
+import { BudgetPipe } from './budget.pipe';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, DurationPipe],
+  imports: [RouterOutlet, DurationPipe, BudgetPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
