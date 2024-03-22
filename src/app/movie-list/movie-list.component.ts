@@ -8,11 +8,13 @@ import {
 import { MoviesFacade } from '../movies.facade';
 import { DurationPipe } from '../duration.pipe';
 import { BudgetPipe } from '../budget.pipe';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  imports: [CommonModule, DurationPipe, BudgetPipe, AsyncPipe],
+  /* Order imports in order of descending stability. */
+  imports: [CommonModule, RouterLink, AsyncPipe, DurationPipe, BudgetPipe],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

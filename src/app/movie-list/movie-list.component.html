@@ -34,6 +34,6 @@
     <li>Budget : {{ movie.budget | budget }}</li>
     <li>Duration : {{ movie.duration | duration }}</li>
   </ul>
-  <button [id]="movie.id">Details</button>
+  <button [id]="movie.id" [routerLink]="['/movies', movie.id]">Details</button>
   }
 </section>

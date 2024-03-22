@@ -81,11 +81,22 @@ export class MoviesFacade {
     this.state.next({ ...this.state.value, isLoading: true });
   }
 
+  private resetFilterCriteria() {
+    this.state.next({
+      ...this.state.value,
+      titleSearched: '',
+      releaseYearSearched: '',
+    });
+  }
+
   /* Side Effects */
   loadMovieList(): void {
     this.moviesService
       .getMovieList()
-      .pipe(tap(() => this.startLoading))
+      .pipe(
+        tap(() => this.resetFilterCriteria()),
+        tap(() => this.startLoading())
+      )
       .subscribe((value) => this.setMovieList(value));
   }
 }

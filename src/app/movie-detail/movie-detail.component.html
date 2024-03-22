@@ -1,1 +1,42 @@
-<h1>Movie</h1>
+<button routerLink="/movies"><span class="icon-home"></span> Back</button>
+
+@if (movie$ | async; as movie) {
+<h1>{{ movie.title }}</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <img [src]="movie.poster" [alt]="movie.title" />
+    </div>
+    <div class="col-sm-7"><strong>Summary</strong> : {{ movie.summary }}</div>
+  </div>
+
+  <table class="horizontal">
+    <caption>
+      Details
+    </caption>
+    <thead>
+      <tr>
+        <th>Box Office</th>
+        <th>Budget</th>
+        <th>Duration</th>
+        <th>Producers</th>
+        <th>Cinematographers</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="Box Office">{{ movie.box_office | budget }}</td>
+        <td data-label="Budget">{{ movie.budget | budget }}</td>
+        <td data-label="Duration">{{ movie.duration | duration }}</td>
+        <td data-label="Producers">{{ movie.producers.join(", ") }}</td>
+        <td data-label="Cinematographers">
+          {{ movie.cinematographers.join(", ") }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+} @else {
+<p>Movie not found...</p>
+<button routerLink="/movies">Go movie list</button>
+}
