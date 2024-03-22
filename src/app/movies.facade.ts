@@ -29,21 +29,19 @@ export class MoviesFacade {
       const title = state.titleSearched.trim().toLowerCase();
       const releaseYear = state.releaseYearSearched.trim();
 
+      /* No search criteria, so we return the whole movie list. */
       if (!title && !releaseYear) {
         return this.state.value.movieList;
       }
 
+      /* We probably need to adress complexity in code here. */
       const result = this.state.value.movieList.filter((movie: Movie) => {
-        console.log(new Date(movie.release_date).getFullYear().toString());
-        console.log(releaseYear);
-
         return (
           movie.title.trim().toLowerCase().includes(title) &&
           new Date(movie.release_date).getFullYear() === +releaseYear
         );
       });
 
-      console.log('RESULT', result);
       return result;
     })
   );
