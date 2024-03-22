@@ -6,11 +6,11 @@ import {
   inject,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { MoviesService } from '../movies.service';
-import { Movie } from '../movie.model';
+import { MoviesService } from '../shared/movies.service';
+import { Movie } from '../shared/movie.model';
 import { Observable, of } from 'rxjs';
-import { BudgetPipe } from '../budget.pipe';
-import { DurationPipe } from '../duration.pipe';
+import { BudgetPipe } from '../shared/budget.pipe';
+import { DurationPipe } from '../shared/duration.pipe';
 
 @Component({
   selector: 'app-movie-detail',

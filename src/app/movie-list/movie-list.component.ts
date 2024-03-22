@@ -5,9 +5,9 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { MoviesFacade } from '../movies.facade';
-import { DurationPipe } from '../duration.pipe';
-import { BudgetPipe } from '../budget.pipe';
+import { MoviesFacade } from './movies.facade';
+import { DurationPipe } from '../shared/duration.pipe';
+import { BudgetPipe } from '../shared/budget.pipe';
 import { RouterLink } from '@angular/router';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, map, tap } from 'rxjs';
-import { MoviesService } from './movies.service';
-import { Movie } from './movie.model';
+import { MoviesService } from '../shared/movies.service';
+import { Movie } from '../shared/movie.model';
 
 type MovieState = {
   movieList: Movie[];
