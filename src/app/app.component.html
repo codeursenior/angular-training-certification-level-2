@@ -2,10 +2,10 @@
   @for (movie of movieList; track movie.id) {
   <div>
     <h1>{{ movie.title }}</h1>
-    <p>
-      Durée : {{ movie.duration }} - Budget : {{ movie.budget }} - Duration:
-      {{ movie.duration }}
-    </p>
+    <span>Release Date : {{ movie.release_date }}</span>
+    <span>Budget : {{ movie.budget }}</span>
+    <span>Duration : {{ movie.duration | duration }}</span>
+    <button>Details</button>
   </div>
   } @empty {
   <p>No movies</p>
