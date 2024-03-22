@@ -1,13 +1,11 @@
 <section>
   @for (movie of movieList; track movie.id) {
-  <div>
-    <h1>{{ movie.title }}</h1>
-    <span>Release Date : {{ movie.release_date }}</span>
-    <span>Budget : {{ movie.budget | budget }}</span>
-    <span>Duration : {{ movie.duration | duration }}</span>
-    <button>Details</button>
-  </div>
-  } @empty {
-  <p>No movies</p>
+  <h1>{{ movie.title }}</h1>
+  <ul>
+    <li>Release Date : {{ movie.release_date }}</li>
+    <li>Budget : {{ movie.budget | budget }}</li>
+    <li>Duration : {{ movie.duration | duration }}</li>
+  </ul>
+  <button>Details</button>
   }
 </section>
