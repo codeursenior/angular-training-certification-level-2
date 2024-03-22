@@ -27,22 +27,27 @@ export class MoviesFacade {
   filteredMovieList$ = this.state$.pipe(
     map((state) => {
       const title = state.titleSearched.trim().toLowerCase();
-      const releaseYear = state.releaseYearSearched.trim();
+      const releaseYear = +state.releaseYearSearched.trim();
 
-      /* No search criteria, so we return the whole movie list. */
       if (!title && !releaseYear) {
-        return this.state.value.movieList;
+        return state.movieList;
       }
 
-      /* We probably need to adress complexity in code here. */
-      const result = this.state.value.movieList.filter((movie: Movie) => {
-        return (
-          movie.title.trim().toLowerCase().includes(title) &&
-          new Date(movie.release_date).getFullYear() === +releaseYear
-        );
-      });
+      let movieSearched = state.movieList;
 
-      return result;
+      if (title) {
+        movieSearched = movieSearched.filter((movie) =>
+          movie.title.trim().toLowerCase().includes(title)
+        );
+      }
+
+      if (releaseYear) {
+        movieSearched = movieSearched.filter(
+          (movie) => new Date(movie.release_date).getFullYear() === releaseYear
+        );
+      }
+
+      return movieSearched;
     })
   );
 
