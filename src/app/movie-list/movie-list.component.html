@@ -1,3 +1,4 @@
+<!-- This component could be extract in a presentational component 'MovieSearchComponent', if we have more complexity to manage on this page. Currently the component is only 40 lines so this seems acceptable.. -->
 <section>
   <h3>Filters</h3>
   <div class="row">
@@ -17,7 +18,7 @@
         <label for="release-year">Release year</label>
         <input
           (input)="facade.updateSearchedRealeaseYear($event)"
-          type="text"
+          type="number"
           id="release-year"
           placeholder="Release year..."
         />
@@ -26,6 +27,7 @@
   </div>
 </section>
 
+<!-- This component could be extract in a presentational component 'MoviesResultComponent', if we have more complexity to manage on this page. Currently the component is only 40 lines so this seems acceptable. -->
 <section>
   @for (movie of facade.searchedMovieList$ | async; track movie.id) {
   <h1>{{ movie.title }}</h1>
